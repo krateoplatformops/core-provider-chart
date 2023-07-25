@@ -15,10 +15,7 @@ rules:
   resources:
   - customresourcedefinitions
   verbs:
-  - get
-  - list
-  - create
-  - delete
+  - '*'
 - apiGroups:
   - ""
   resources:

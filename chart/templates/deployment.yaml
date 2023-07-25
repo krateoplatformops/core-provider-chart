@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-      - name: {{ .Release.Name }}
+      - name: {{ .Chart.Name }}
         image: ghcr.io/krateoplatformops/{{ .Chart.Name }}:{{ .Chart.AppVersion }}
         imagePullPolicy: IfNotPresent
         {{- with .Values.podEnv }}
