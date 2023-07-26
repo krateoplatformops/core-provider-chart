@@ -21,26 +21,20 @@ rules:
   resources:
   - deployments
   verbs:
-  - create
-  - get
-  - list
+  - '*'
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
   - roles
   - rolebindings
   verbs:
-  - create
-  - get
-  - list
+  - '*'
 - apiGroups:
   - ""
   resources:
   - serviceaccounts
   verbs:
-  - create
-  - get
-  - list
+  - '*'
 - apiGroups:
   - ""
   resources:
