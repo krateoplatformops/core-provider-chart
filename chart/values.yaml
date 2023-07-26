@@ -4,3 +4,5 @@ podEnv:
     value: "true"
   - name: CORE_PROVIDER_POLL_INTERVAL
     value: "3m"
+  - name: COMPOSITION_CONTROLLER_IMAGE_TAG
+    value: "0.2.3"
