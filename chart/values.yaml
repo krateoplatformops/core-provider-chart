@@ -2,7 +2,5 @@
 podEnv:
   - name: CORE_PROVIDER_DEBUG
     value: "true"
-  - name: CORE_PROVIDER_POLL_INTERVAL
-    value: "3m"
   - name: CDC_IMAGE_TAG
     value: "0.4.0"
