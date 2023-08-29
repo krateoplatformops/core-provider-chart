@@ -36,9 +36,6 @@ jobs:
       - name: Replace App Version in Chart.yaml
         run: sed -i 's/APP_VERSION/${{ steps.app_version.outputs.tag }}/g' ./chart/Chart.yaml
 
-      - name: Replace App Version in values.yaml
-        run: sed -i 's/APP_VERSION/${{ steps.app_version.outputs.tag }}/g' ./chart/values.yaml
-
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@master
         with:

@@ -3,4 +3,4 @@ podEnv:
   - name: CORE_PROVIDER_DEBUG
     value: "true"
   - name: CDC_IMAGE_TAG
-    value: "APP_VERSION"
+    value: "0.5.0"
