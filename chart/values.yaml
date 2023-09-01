@@ -3,4 +3,4 @@ podEnv:
   - name: CORE_PROVIDER_DEBUG
     value: "true"
   - name: CDC_IMAGE_TAG
-    value: "0.5.1"
+    value: "0.5.2"
