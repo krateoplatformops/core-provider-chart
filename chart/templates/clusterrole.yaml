@@ -6,8 +6,10 @@ rules:
 - apiGroups:
   - core.krateo.io
   resources:
-  - definitions
-  - definitions/status
+  - compositiondefinitions
+  - compositiondefinitions/status
+  - schemadefinitions
+  - schemadefinitions/status
   verbs:
   - '*'
 - apiGroups:
