@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "core-provider.fullname" . }}-apply-job
+  labels:
+    {{- include "core-provider.labels" . | nindent 4 }}
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      serviceAccount: {{ include "core-provider.fullname" . }}-job-sa
+      containers:
+        - name: {{ include "core-provider.fullname" . }}-kubectl
+          image: bitnami/kubectl
+          command:
+            - kubectl
+            - patch
+            - MutatingWebhookConfiguration
+            - {{ include "core-provider.fullname" . }}
+            - --patch-file
+            - /tmp/core-provider-mutate.yaml
+          volumeMounts:
+            - name: crd-volume
+              mountPath: /tmp
+      volumes:
+        - name: crd-volume
+          configMap:
+            name: core-provider-configmap

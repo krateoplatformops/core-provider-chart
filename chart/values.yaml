@@ -89,13 +89,16 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes:
-  - emptyDir: {}
-    name: tmp-dir
+  - name: cert
+    secret:
+      defaultMode: 420
+      secretName: core-provider-certs
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - mountPath: /tmp
-    name: tmp-dir
+  - mountPath: /tmp/k8s-webhook-server/serving-certs
+    name: cert
+    readOnly: true
 
 nodeSelector: {}
 
@@ -105,4 +108,4 @@ affinity: {}
 
 env:
   CORE_PROVIDER_DEBUG: "true"
-  CDC_IMAGE_TAG: 0.13.0
+  CDC_IMAGE_TAG: 0.13.2
