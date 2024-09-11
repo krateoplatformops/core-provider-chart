@@ -7,3 +7,4 @@ metadata:
 data:
   CORE_PROVIDER_DEBUG: "{{ .Values.env.CORE_PROVIDER_DEBUG }}"
   CDC_IMAGE_TAG: {{ .Values.env.CDC_IMAGE_TAG }}
+  CORE_PROVIDER_WEBHOOK_SERVICE_NAMESPACE: {{ .Release.Namespace }}
