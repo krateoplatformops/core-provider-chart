@@ -108,4 +108,4 @@ affinity: {}
 
 env:
   CORE_PROVIDER_DEBUG: "true"
-  CDC_IMAGE_TAG: 0.13.9
+  CDC_IMAGE_TAG: 0.14.0
