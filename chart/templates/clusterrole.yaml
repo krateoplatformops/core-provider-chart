@@ -55,3 +55,9 @@ rules:
   - get
   - list
   - watch
+- apiGroups:
+  - "composition.krateo.io"
+  resources:
+  - "*"
+  verbs:
+  - "*"
