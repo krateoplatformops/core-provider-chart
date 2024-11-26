@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "core-provider.labels" . | nindent 4 }}
 data:
-  CORE_PROVIDER_DEBUG: "{{ .Values.env.CORE_PROVIDER_DEBUG }}"
-  CDC_IMAGE_TAG: {{ .Values.env.CDC_IMAGE_TAG }}
   CORE_PROVIDER_WEBHOOK_SERVICE_NAMESPACE: {{ .Release.Namespace }}
+  {{- range $key, $value := .Values.env }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
