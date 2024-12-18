@@ -17,7 +17,7 @@ spec:
       serviceAccount: {{ include "core-provider.fullname" . }}-job-sa
       containers:
         - name: {{ include "core-provider.fullname" . }}-patcher
-          image: bitnami/kubectl
+          image: registry.k8s.io/kubectl:v1.32.0
           command: ['/bin/bash','/tmp/mount/create-certs.sh', {{ .Release.Namespace }},  "core-provider-webhook-service"]
           volumeMounts:
             - name: script-volume
