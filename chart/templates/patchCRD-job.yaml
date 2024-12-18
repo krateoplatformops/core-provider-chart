@@ -17,7 +17,7 @@ spec:
       serviceAccount: {{ include "core-provider.fullname" . }}-job-sa
       containers:
         - name: {{ include "core-provider.fullname" . }}-kubectl
-          image: registry.k8s.io/kubectl:v1.32.0
+          image: ghcr.io/krateoplatformops/kubectl:1.32.0
           command:
             - kubectl
             - patch
