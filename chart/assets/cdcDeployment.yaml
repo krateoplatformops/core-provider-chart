@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-controller
+  namespace: {{ "{{" }} .namespace {{ "}}" }}
+  labels:
+    app.kubernetes.io/name: {{ "{{" }} .name {{ "}}" }}
+    app.kubernetes.io/instance: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/part-of: krateoplatformops
+    app.kubernetes.io/managed-by: krateo
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.cdc.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ "{{" }} .name {{ "}}" }}
+  template:
+    metadata:
+      name: {{ "{{" }} .name {{ "}}" }}
+      namespace: {{ "{{" }} .namespace {{ "}}" }}
+      labels:
+        app.kubernetes.io/name: {{ "{{" }} .name {{ "}}" }}
+    spec:
+      serviceAccountName: {{ "{{" }} .name {{ "}}" }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-controller
+          image: "{{ .Values.cdc.image.repository }}:{{ .Values.cdc.image.tag | default "0.15.3" }}"
+          imagePullPolicy: {{ .Values.cdc.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-cdc-configmap
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          args:
+            - -debug
+            - -group={{ "{{" }} .apiGroup {{ "}}" }}
+            - -version={{ "{{" }} .apiVersion {{ "}}" }}
+            - -resource={{ "{{" }} .resource {{ "}}" }}
+            - -namespace={{ "{{" }} .namespace {{ "}}" }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.cdc.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.cdc.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.cdc.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.cdc.resources | nindent 12 }}
+      {{- with .Values.cdc.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+      {{- end }}
+      {{- with .Values.cdc.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cdc.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cdc.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.cdc.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
