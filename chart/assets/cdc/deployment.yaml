@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/part-of: krateoplatformops
     app.kubernetes.io/managed-by: krateo
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+  {{- if not .Values.cdc.autoscaling.enabled }}
   replicas: {{ .Values.cdc.replicaCount }}
   {{- end }}
   selector:
@@ -25,16 +25,16 @@ spec:
     spec:
       serviceAccountName: {{ "{{" }} .name {{ "}}" }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.cdc.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-controller
           image: "{{ .Values.cdc.image.repository }}:{{ .Values.cdc.image.tag | default "0.15.3" }}"
           imagePullPolicy: {{ .Values.cdc.image.pullPolicy }}
           envFrom:
             - configMapRef:
-                name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-cdc-configmap
+                name: {{ include "core-provider.fullname" . }}-cdc-configmap
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.cdc.securityContext | nindent 12 }}
           args:
             - -debug
             - -group={{ "{{" }} .apiGroup {{ "}}" }}
