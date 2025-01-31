@@ -5,7 +5,5 @@ metadata:
   labels:
     {{- include "core-provider.labels" . | nindent 4 }}
 data:
-  HOME: /tmp # home should be set to /tmp or any other writable directory to avoid permission issues with helm https://github.com/helm/helm/issues/8038 
-  {{- range $key, $value := .Values.cdc.env }}
-  {{ $key }}: {{ $value | quote }}
-  {{- end }}
+  configmap.yaml: |
+{{ tpl (.Files.Get "assets/cdc/configmap.yaml") . | indent 4 }}

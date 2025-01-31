@@ -88,17 +88,10 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes:
-  - name: cert
-    secret:
-      defaultMode: 420
-      secretName: core-provider-certs
+volumes: []
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - mountPath: /tmp/k8s-webhook-server/serving-certs
-    name: cert
-    readOnly: true
+volumeMounts: []
 
 nodeSelector: {}
 
@@ -113,7 +106,7 @@ cdc:
   image:
     repository: ghcr.io/krateoplatformops/composition-dynamic-controller
     pullPolicy: IfNotPresent
-    tag: 0.15.3
+    tag: 0.15.4
   replicaCount: 1
   imagePullSecrets: []
   nameOverride: ""

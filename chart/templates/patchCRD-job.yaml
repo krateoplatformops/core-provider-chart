@@ -24,11 +24,11 @@ spec:
             - MutatingWebhookConfiguration
             - {{ include "core-provider.fullname" . }}
             - --patch-file
-            - /tmp/core-provider-mutate.yaml
+            - /tmp/{{ include "core-provider.fullname" . }}-mutate.yaml
           volumeMounts:
             - name: crd-volume
               mountPath: /tmp
       volumes:
         - name: crd-volume
           configMap:
-            name: core-provider-configmap
+            name: {{ include "core-provider.fullname" . }}-configmap
