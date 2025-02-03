@@ -32,7 +32,7 @@ spec:
           imagePullPolicy: {{ .Values.cdc.image.pullPolicy }}
           envFrom:
             - configMapRef:
-                name: {{ include "core-provider.fullname" . }}-cdc-configmap
+                name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-configmap
           securityContext:
             {{- toYaml .Values.cdc.securityContext | nindent 12 }}
           args:

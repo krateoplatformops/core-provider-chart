@@ -24,23 +24,23 @@ CA_BUNDLE=$(base64 -w 0 /tmp/tls.crt)
 
 kubectl create configmap {{ include "core-provider.fullname" . }}-configmap --from-literal={{ include "core-provider.fullname" . }}-mutate.yaml="webhooks:
 - name: core.provider.krateo.io
-    admissionReviewVersions:
-    - v1
-    - v1alpha2
-    - v1alpha1
-    rules:
-    - operations: ['"CREATE"']
-        apiGroups: ['"composition.krateo.io"']
-        apiVersions: ['"*"']
-        resources: ['"*"']
-        scope: '"*"'
-    sideEffects: None
-    clientConfig:
+  admissionReviewVersions:
+  - v1
+  - v1alpha2
+  - v1alpha1
+  rules:
+  - operations: ['CREATE']
+    apiGroups: ['composition.krateo.io']
+    apiVersions: ['*']
+    resources: ['*']
+    scope: '*'
+  sideEffects: None
+  clientConfig:
     service:
-        namespace: ${WEBHOOK_NS}
-        name: {{ include "core-provider.fullname" . }}-webhook-service
-        path: /mutate
-        port: 9443
-    caBundle: ${CA_BUNDLE}"
+      namespace: ${WEBHOOK_NS}
+      name: {{ include "core-provider.fullname" . }}-webhook-service
+      path: /mutate
+      port: 9443
+  caBundle: ${CA_BUNDLE}"
 
 rm /tmp/tls.*

@@ -52,7 +52,7 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+
           volumeMounts:
             - mountPath: /tmp/assets/cdc-deployment
               name: cdc-deployment
@@ -63,8 +63,9 @@ spec:
             - mountPath: /tmp/k8s-webhook-server/serving-certs
               name: cert
               readOnly: true
+            {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- end }}
       volumes:
         - name: cdc-deployment
           configMap:
