@@ -18,7 +18,7 @@ spec:
       containers:
         - name: {{ include "core-provider.fullname" . }}-patcher
           image: ghcr.io/krateoplatformops/kubectl:1.32.0
-          command: ['/bin/bash','/tmp/mount/create-certs.sh', {{ .Release.Namespace }},  "core-provider-webhook-service"]
+          command: ['/bin/bash','/tmp/mount/create-certs.sh', {{ .Release.Namespace }},  "{{ include "core-provider.fullname" . }}-webhook-service"]
           volumeMounts:
             - name: script-volume
               mountPath: /tmp/mount

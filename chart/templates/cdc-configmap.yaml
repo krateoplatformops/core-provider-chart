@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "core-provider.labels" . | nindent 4 }}
 data:
-    deployment.yaml: |
-{{ tpl (.Files.Get "assets/cdc/deployment.yaml") . | indent 6 }}
+  deployment.yaml: |
+{{ tpl (.Files.Get "assets/cdc/deployment.yaml") . | indent 4 }}

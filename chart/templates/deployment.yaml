@@ -52,17 +52,31 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+
           volumeMounts:
-            - mountPath: /tmp/assets
+            - mountPath: /tmp/assets/cdc-deployment
               name: cdc-deployment
               readOnly: true
+            - mountPath: /tmp/assets/cdc-configmap
+              name: cdc-configmap
+              readOnly: true
+            - mountPath: /tmp/k8s-webhook-server/serving-certs
+              name: cert
+              readOnly: true
+            {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- end }}
       volumes:
         - name: cdc-deployment
           configMap:
             name: {{ include "core-provider.fullname" . }}-cdc-deployment
+        - name: cdc-configmap
+          configMap:
+            name: {{ include "core-provider.fullname" . }}-cdc-configmap
+        - name: cert
+          secret:
+            defaultMode: 420
+            secretName: {{ include "core-provider.fullname" . }}-certs
           {{- with .Values.volumes }}
           {{- toYaml . | nindent 8 }}
           {{- end }}
