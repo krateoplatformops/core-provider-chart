@@ -41,6 +41,6 @@ kubectl create configmap {{ include "core-provider.fullname" . }}-configmap --fr
       name: {{ include "core-provider.fullname" . }}-webhook-service
       path: /mutate
       port: 9443
-  caBundle: ${CA_BUNDLE}"
+    caBundle: ${CA_BUNDLE}"
 
 rm /tmp/tls.*
