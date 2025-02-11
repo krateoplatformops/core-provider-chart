@@ -199,4 +199,4 @@ cdc:
 
   env:
     HOME: /tmp # home should be set to /tmp or any other writable directory to avoid permission issues with helm https://github.com/helm/helm/issues/8038
-    URL_PLURALS: http://bff.demo-system.svc.cluster.local:8081/api-info/names
+    URL_PLURALS: http://bff.krateo-system.svc.cluster.local:8081/api-info/names
