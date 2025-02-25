@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "chart-inspector.fullname" . }}
+  labels:
+    {{- include "chart-inspector.labels" . | nindent 4 }}
+data:
+  {{- range $key, $value := .Values.chartInspector.env }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
