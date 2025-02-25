@@ -23,7 +23,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ "{{" }} .name {{ "}}" }}
     spec:
-      serviceAccountName: {{ "{{" }} .name {{ "}}" }}
+      serviceAccountName: {{ "{{" }} .serviceAccountName {{ "}}" }}
       securityContext:
         {{- toYaml .Values.cdc.podSecurityContext | nindent 8 }}
       containers:

@@ -60,3 +60,40 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+Common labels
+*/}}
+{{- define "chart-inspector.labels" -}}
+helm.sh/chart: {{ include "core-provider.chart" . }}
+{{ include "chart-inspector.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "chart-inspector.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "core-provider.name" . }}-chart-inspector
+app.kubernetes.io/instance: {{ .Release.Name }}-chart-inspector
+{{- end }}
+
+{{- define "chart-inspector.fullname" -}}
+{{ include "core-provider.fullname" . }}-chart-inspector
+{{- end }}
+
+{{- define "chart-inspector.name" -}}
+{{ include "core-provider.name" . }}-chart-inspector
+{{- end }}
+
+{{- define "chart-inspector.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "chart-inspector.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
