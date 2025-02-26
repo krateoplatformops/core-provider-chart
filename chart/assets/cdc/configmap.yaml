@@ -13,6 +13,7 @@ data:
   COMPOSITION_CONTROLLER_SA_NAME: {{ "{{" }} .composition_controller_sa_name {{ "}}" }}
   COMPOSITION_CONTROLLER_SA_NAMESPACE: {{ "{{" }} .composition_controller_sa_namespace {{ "}}" }}
   URL_CHART_INSPECTOR: http://{{ include "chart-inspector.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:8081/
+  KRATEO_NAMESPACE: {{ .Release.Namespace }}
   {{- range $key, $value := .Values.cdc.env }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
