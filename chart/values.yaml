@@ -132,14 +132,14 @@ chartInspector:
   service:
     type: ClusterIP
     port: 80
-  env: {}
-
+  env:
+    HOME: /tmp # home should be set to /tmp or any other writable directory to avoid permission issues with helm https://github.com/helm/helm/issues/8038
 
 cdc:
   image:
     repository: ghcr.io/krateoplatformops/composition-dynamic-controller
     pullPolicy: IfNotPresent
-    tag: 0.16.3
+    tag: 0.16.4
   replicaCount: 1
   imagePullSecrets: []
   nameOverride: ""
