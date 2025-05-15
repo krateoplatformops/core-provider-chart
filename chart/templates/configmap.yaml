@@ -6,6 +6,7 @@ metadata:
     {{- include "core-provider.labels" . | nindent 4 }}
 data:
   CORE_PROVIDER_WEBHOOK_SERVICE_NAMESPACE: {{ .Release.Namespace }}
+  CORE_PROVIDER_WEBHOOK_SERVICE_NAME: {{ include "core-provider.fullname" . }}-webhook-service
   {{- range $key, $value := .Values.env }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
