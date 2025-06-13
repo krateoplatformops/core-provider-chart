@@ -1,11 +1,11 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "core-provider.fullname" . }}
+  name: {{ include "core-provider.fullname" . }}-{{ .Release.Namespace }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name:  {{ include "core-provider.fullname" . }}
+  name:  {{ include "core-provider.fullname" . }}-{{ .Release.Namespace }}
 subjects:
 - kind: ServiceAccount
   name: {{ include "core-provider.fullname" . }}
