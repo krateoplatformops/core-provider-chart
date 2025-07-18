@@ -69,6 +69,11 @@ spec:
             - mountPath: /tmp/assets/json-schema-configmap
               name: jsonschema-configmap
               readOnly: true
+            {{- if .Values.cdc.metrics.enabled }}
+            - mountPath: /tmp/assets/cdc-service
+              name: cdc-service
+              readOnly: true
+            {{- end }}
             {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -88,6 +93,11 @@ spec:
         - name: jsonschema-configmap
           configMap:
             name: {{ include "core-provider.fullname" . }}-jsonschema-configmap
+        {{- if .Values.cdc.metrics.enabled }}
+        - name: cdc-service
+          configMap:
+            name: {{ include "core-provider.fullname" . }}-service-configmap
+        {{- end }}
           {{- with .Values.volumes }}
           {{- toYaml . | nindent 8 }}
           {{- end }}

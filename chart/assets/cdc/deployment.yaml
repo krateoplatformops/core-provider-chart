@@ -29,7 +29,7 @@ spec:
         {{- toYaml .Values.cdc.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ "{{" }} .resource {{ "}}" }}-{{ "{{" }} .apiVersion {{ "}}" }}-controller
-          image: "{{ .Values.cdc.image.repository }}:{{ .Values.cdc.image.tag | default "0.15.3" }}"
+          image: "{{ .Values.cdc.image.repository }}:{{ .Values.cdc.image.tag | default "0.17.4" }}"
           imagePullPolicy: {{ .Values.cdc.image.pullPolicy }}
           envFrom:
             - configMapRef:
@@ -42,9 +42,11 @@ spec:
             - -version={{ "{{" }} .apiVersion {{ "}}" }}
             - -resource={{ "{{" }} .resource {{ "}}" }}
           ports:
-            - name: http
-              containerPort: {{ .Values.cdc.service.port }}
+            {{- if .Values.cdc.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.cdc.metrics.port }}
               protocol: TCP
+            {{- end }}
           livenessProbe:
             {{- toYaml .Values.cdc.livenessProbe | nindent 12 }}
           readinessProbe:
