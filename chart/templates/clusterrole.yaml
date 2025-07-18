@@ -111,3 +111,9 @@ rules:
   - create
   - patch
   - update
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - "*"

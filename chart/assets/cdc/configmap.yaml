@@ -15,6 +15,9 @@ data:
   COMPOSITION_CONTROLLER_SA_NAMESPACE: {{ "{{" }} .composition_controller_sa_namespace {{ "}}" }}
   URL_CHART_INSPECTOR: http://{{ include "chart-inspector.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:8081/
   KRATEO_NAMESPACE: {{ .Release.Namespace }}
+  {{- if .Values.cdc.metrics.enabled }}
+  COMPOSITION_CONTROLLER_METRICS_SERVER_PORT: "{{ .Values.cdc.metrics.port | default 0 }}" # Set to 0 to disable metrics server
+  {{- end }}
   {{- range $key, $value := .Values.cdc.env }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
