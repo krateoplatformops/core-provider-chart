@@ -37,7 +37,6 @@ spec:
           securityContext:
             {{- toYaml .Values.cdc.securityContext | nindent 12 }}
           args:
-            - -debug
             - -group={{ "{{" }} .apiGroup {{ "}}" }}
             - -version={{ "{{" }} .apiVersion {{ "}}" }}
             - -resource={{ "{{" }} .resource {{ "}}" }}
