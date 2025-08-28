@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "chart-inspector.labels" . | nindent 4 }}
 data:
+  KRATEO_NAMESPACE: {{ .Release.Namespace }}
   {{- range $key, $value := .Values.chartInspector.env }}
   {{ $key }}: {{ $value | quote }}
   {{- end }}
