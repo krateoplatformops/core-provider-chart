@@ -139,7 +139,7 @@ cdc:
   image:
     repository: ghcr.io/krateoplatformops/composition-dynamic-controller
     pullPolicy: IfNotPresent
-    tag: "0.19.1"
+    tag: "0.19.2"
   replicaCount: 1
   imagePullSecrets: []
   nameOverride: ""
@@ -216,3 +216,4 @@ cdc:
 
   env:
     HOME: /tmp # home should be set to /tmp or any other writable directory to avoid permission issues with helm https://github.com/helm/helm/issues/8038
+    COMPOSITION_CONTROLLER_DEBUG: "false"
