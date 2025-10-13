@@ -139,7 +139,7 @@ cdc:
   image:
     repository: ghcr.io/krateoplatformops/composition-dynamic-controller
     pullPolicy: IfNotPresent
-    tag: "0.19.7"
+    tag: "0.19.8"
   replicaCount: 1
   imagePullSecrets: []
   nameOverride: ""
