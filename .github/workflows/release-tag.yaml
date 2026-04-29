@@ -43,6 +43,9 @@ jobs:
         run: |
           echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
 
+      - name: Setup Node dependencies
+        run: npm install semver
+
       - name: Extract latest App Version
         uses: actions/github-script@v7
         id: app_version
